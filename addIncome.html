@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Income</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            background : url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjT8YclsHdzbyAi856xWYzAASErD8fm7Gtaw&s") ;
+           background-repeat: no-repeat;
+          background-size: cover;
+        }
+        .form-container {
+            text-align: center;
+        }
+        .input, .textarea {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Income</h2>
+        <input type="text" id="incomeDescription" class="input" placeholder="Enter description">
+        <input type="number" id="incomeAmount" class="input" placeholder="Enter income amount"><br>
+        <button class="button" onclick="addIncome()">Submit</button>
+    </div>
+
+    <script>
+        function addIncome() {
+            const description = document.getElementById('incomeDescription').value;
+            const amount = document.getElementById('incomeAmount').value;
+            if (description.trim() === '' || amount.trim() === '' || isNaN(amount)) {
+                alert('Please enter a valid description and amount!');
+                return;
+            }
+
+            const date = new Date();
+            const entry = {
+                type: 'income',
+                amount: parseFloat(amount),
+                description: description.trim(),
+                date: date.toLocaleString()
+            };
+
+            const entries = JSON.parse(localStorage.getItem('entries')) || [];
+            entries.push(entry);
+            localStorage.setItem('entries', JSON.stringify(entries));
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
